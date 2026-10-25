@@ -38,6 +38,8 @@ favicon.svg
 work/
   skeleton.css    shared base for the samples, re-themed via --accent
   skeleton.js
+  local/          local service business sample
+  saas/           SaaS product sample
   storefront/     ecommerce sample
   booking/        service business sample
   membership/     membership and community sample
@@ -54,3 +56,7 @@ python -m http.server 8000
 ## Deploy
 
 Static site. No build command, no output directory. Point the domain at it.
+
+## Contact
+
+Calls booked through Calendly, enquiries by email, phone for anything urgent.

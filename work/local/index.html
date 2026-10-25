@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Northline Plumbing and Heating · Atlanta</title>
+<meta name="description" content="Licensed plumbing and heating in metro Atlanta. Emergency callouts 24 hours, upfront pricing, no overtime charges." />
+<meta name="theme-color" content="#0f2744" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230f2744'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='34' font-weight='700' fill='%23e8590c' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E" />
+<style>
+:root{
+  --navy:#0f2744; --navy-2:#1b3a5f; --orange:#e8590c; --orange-d:#c2410c;
+  --bg:#ffffff; --soft:#f4f7fb; --line:#dde5ef; --ink:#13243a; --mut:#5b7287; --faint:#8fa3b6;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:clamp(18px,4vw,32px)}
+h1,h2,h3{margin:0;line-height:1.15;letter-spacing:-.02em;font-weight:800}
+h1{font-size:clamp(32px,5vw,50px)} h2{font-size:clamp(23px,3vw,32px)} h3{font-size:18px}
+p{margin:0 0 12px} p:last-child{margin-bottom:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:15px;padding:13px 22px;border-radius:6px;border:2px solid transparent;cursor:pointer}
+.btn-o{background:var(--orange);color:#fff}.btn-o:hover{background:var(--orange-d)}
+.btn-w{background:#fff;color:var(--navy);border-color:#fff}
+.btn-l{background:transparent;color:var(--navy);border-color:var(--line)}.btn-l:hover{border-color:var(--navy)}
+
+/* bar */
+.bar{background:var(--navy);color:#fff}
+.bar-in{display:flex;align-items:center;gap:20px;height:62px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:-.02em}
+.logo i{width:30px;height:30px;border-radius:6px;background:var(--orange);display:grid;place-items:center;font-style:normal;font-size:16px}
+.bar nav{display:flex;gap:20px;margin-left:12px}
+.bar nav a{font-size:14.5px;color:#c6d6e6}.bar nav a:hover{color:#fff}
+.bar .ph{margin-left:auto;display:flex;align-items:center;gap:12px}
+.bar .num{font-weight:800;font-size:18px;letter-spacing:-.01em}
+.bar .num small{display:block;font-weight:400;font-size:11px;color:#9db4c9;letter-spacing:.04em;text-transform:uppercase}
+
+/* hero */
+.hero{background:var(--navy);color:#fff;padding-block:clamp(36px,6vw,64px) clamp(44px,7vw,76px)}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:start}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,89,12,.16);color:#ffb088;border:1px solid rgba(232,89,12,.45);padding:5px 12px;border-radius:999px;font-size:13px;font-weight:700}
+.hero h1{margin-top:16px;max-width:15ch}
+.hero p.s{margin-top:16px;max-width:48ch;font-size:17.5px;color:#c6d6e6}
+.hero .acts{margin-top:26px;display:flex;flex-wrap:wrap;gap:12px}
+.ticks{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px 24px}
+.ticks span{display:flex;align-items:center;gap:8px;font-size:14.5px;color:#c6d6e6}
+.ticks span::before{content:"";width:16px;height:16px;border-radius:50%;background:var(--orange);flex:none}
+.bookcard{background:#fff;color:var(--ink);border-radius:10px;padding:24px;box-shadow:0 18px 40px rgba(0,0,0,.28)}
+.bookcard h3{font-size:19px}
+.bookcard p{color:var(--mut);font-size:14.5px;margin-top:6px}
+.bookcard .row{display:grid;gap:10px;margin-top:16px}
+.bookcard label{font-size:12.5px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+.bookcard input,.bookcard select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:6px;font-family:inherit;font-size:15px;color:var(--ink);background:#fff}
+.bookcard .btn{width:100%;margin-top:4px}
+.bookcard .fine{font-size:12.5px;color:var(--faint);margin-top:10px;text-align:center}
+
+/* strip */
+.strip{background:var(--soft);border-bottom:1px solid var(--line)}
+.strip-in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px 28px;padding-block:18px}
+.strip b{display:block;font-size:20px;letter-spacing:-.02em}
+.strip span{font-size:13px;color:var(--mut)}
+
+/* sections */
+.sect{padding-block:clamp(44px,6vw,72px)}
+.sect.soft{background:var(--soft);border-block:1px solid var(--line)}
+.head{max-width:60ch;margin-bottom:28px}
+.kick{font-size:13px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--orange)}
+.head h2{margin-top:9px}
+.head p{margin-top:10px;color:var(--mut);font-size:16.5px}
+
+.svcs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.svc{background:#fff;border:1px solid var(--line);border-radius:10px;padding:22px}
+.svc .n{width:34px;height:34px;border-radius:7px;background:#fde8d8;color:var(--orange-d);display:grid;place-items:center;font-weight:800;font-size:14px}
+.svc h3{margin:14px 0 6px;font-size:17px}
+.svc p{color:var(--mut);font-size:14.5px}
+.svc .pr{margin-top:12px;font-weight:800;font-size:15px;color:var(--navy)}
+.svc .pr small{font-weight:400;color:var(--faint);font-size:12.5px}
+
+.areas{display:flex;flex-wrap:wrap;gap:9px}
+.areas span{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 15px;font-size:14px;color:var(--mut)}
+
+.revs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.rev{background:#fff;border:1px solid var(--line);border-radius:10px;padding:22px}
+.rev .st{color:#f59e0b;font-size:15px;letter-spacing:2px}
+.rev p{margin:10px 0 14px;font-size:14.5px}
+.rev b{font-size:14px}.rev small{display:block;color:var(--faint);font-size:12.5px}
+
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+.hours{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.hours td{padding:12px 16px;border-bottom:1px solid var(--line);font-size:15px}
+.hours tr:last-child td{border-bottom:0}
+.hours td:last-child{text-align:right;color:var(--mut)}
+.hours tr.em td{background:#fff5ef;color:var(--orange-d);font-weight:700}
+.cbox{background:var(--navy);color:#fff;border-radius:10px;padding:26px}
+.cbox h3{font-size:19px}
+.cbox .num{font-size:30px;font-weight:800;letter-spacing:-.02em;margin-top:12px;display:block}
+.cbox p{color:#c6d6e6;font-size:14.5px;margin-top:8px}
+.cbox .btn{margin-top:16px}
+
+.foot{background:var(--navy);color:#9db4c9;padding-block:26px;font-size:13.5px}
+.foot-in{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
+.foot a{color:#c6d6e6}
+.built{margin-left:auto;display:inline-flex;align-items:center;gap:7px}
+.built i{width:15px;height:15px;border-radius:4px;background:#1d4ed8;display:block;font-style:normal}
+
+@media(max-width:900px){
+  .hero-grid,.contact{grid-template-columns:1fr}
+  .svcs,.revs{grid-template-columns:1fr 1fr}
+  .bar nav{display:none}
+}
+@media(max-width:620px){
+  .svcs,.revs{grid-template-columns:1fr}
+  .bar .num small{display:none}
+  .hero .acts .btn{width:100%}
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap bar-in">
+    <a href="#" class="logo"><i>N</i>Northline</a>
+    <nav><a href="#services">Services</a><a href="#areas">Service area</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></nav>
+    <div class="ph"><span class="num">(470) 555 0142<small>Call 24 hours</small></span></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="badge">Emergency callouts, 24 hours</span>
+      <h1>Plumbing and heating across metro Atlanta.</h1>
+      <p class="s">Licensed, insured, and upfront about price. We quote before we start, and we do not charge overtime rates for evenings or weekends.</p>
+      <div class="acts">
+        <a href="tel:+14705550142" class="btn btn-o">Call (470) 555 0142</a>
+        <a href="#book" class="btn btn-w">Book a visit</a>
+      </div>
+      <div class="ticks"><span>Licensed and insured</span><span>Upfront pricing</span><span>No overtime charges</span><span>15 years in business</span></div>
+    </div>
+    <div class="bookcard" id="book">
+      <h3>Request a callout</h3>
+      <p>Tell us the problem and we will call you back within the hour.</p>
+      <div class="row">
+        <div><label for="n">Name</label><input id="n" placeholder="Your name" /></div>
+        <div><label for="p">Phone</label><input id="p" placeholder="(470) 000 0000" /></div>
+        <div><label for="s">Problem</label>
+          <select id="s"><option>Burst pipe or leak</option><option>No hot water</option><option>Blocked drain</option><option>Heating not working</option><option>Something else</option></select>
+        </div>
+        <a href="tel:+14705550142" class="btn btn-o">Request callback</a>
+      </div>
+      <p class="fine">Urgent? Calling is faster.</p>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap strip-in">
+    <div><b>15 yrs</b><span>Serving Atlanta</span></div>
+    <div><b>4.9 / 5</b><span>Across 380 reviews</span></div>
+    <div><b>Under 60 min</b><span>Average emergency response</span></div>
+    <div><b>Licensed</b><span>GA master plumber #MP208341</span></div>
+  </div>
+</div>
+
+<section class="sect" id="services">
+  <div class="wrap">
+    <div class="head">
+      <span class="kick">What we do</span>
+      <h2>Repairs, installs, and the emergencies in between.</h2>
+      <p>Every job is quoted before work starts. If we cannot fix it, the callout is free.</p>
+    </div>
+    <div class="svcs">
+      <div class="svc"><div class="n">01</div><h3>Emergency repairs</h3><p>Burst pipes, major leaks, and anything flooding. We answer the phone at any hour and aim to be with you within sixty minutes.</p><div class="pr">$149 <small>callout, 24 hours</small></div></div>
+      <div class="svc"><div class="n">02</div><h3>Water heaters</h3><p>Repair, replacement, and new installs for tank and tankless systems. Same day where we have the unit in stock.</p><div class="pr">$95 <small>diagnostic</small></div></div>
+      <div class="svc"><div class="n">03</div><h3>Drains and sewers</h3><p>Clearing, camera inspection, and root removal. We show you the footage before recommending anything bigger.</p><div class="pr">$129 <small>from</small></div></div>
+      <div class="svc"><div class="n">04</div><h3>Heating and furnaces</h3><p>Servicing, repair, and replacement. Annual maintenance plans available that cover the parts most likely to fail.</p><div class="pr">$110 <small>service</small></div></div>
+      <div class="svc"><div class="n">05</div><h3>Bathroom and kitchen</h3><p>Fixture installs, re pipes, and full remodels coordinated with your contractor. Fixed quotes on all planned work.</p><div class="pr">Quoted <small>on site</small></div></div>
+      <div class="svc"><div class="n">06</div><h3>Inspections</h3><p>Pre purchase and annual checks with a written report, photographs, and a clear list of what needs doing now against later.</p><div class="pr">$175 <small>full report</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="sect soft" id="areas">
+  <div class="wrap">
+    <div class="head">
+      <span class="kick">Service area</span>
+      <h2>Where we cover.</h2>
+      <p>Based in Decatur, working across metro Atlanta. Outside this list, call and ask, we often can.</p>
+    </div>
+    <div class="areas">
+      <span>Atlanta</span><span>Decatur</span><span>Brookhaven</span><span>Sandy Springs</span><span>Marietta</span>
+      <span>Smyrna</span><span>Dunwoody</span><span>Tucker</span><span>Chamblee</span><span>East Point</span>
+      <span>College Park</span><span>Avondale Estates</span><span>Roswell</span><span>Alpharetta</span>
+    </div>
+  </div>
+</section>
+
+<section class="sect" id="reviews">
+  <div class="wrap">
+    <div class="head">
+      <span class="kick">Reviews</span>
+      <h2>What customers say.</h2>
+    </div>
+    <div class="revs">
+      <div class="rev"><div class="st">★★★★★</div><p>Pipe burst under the sink at eleven at night. Someone picked up, and a van was outside in forty minutes. Charged exactly what was quoted on the phone.</p><b>Danielle R.</b><small>Decatur</small></div>
+      <div class="rev"><div class="st">★★★★★</div><p>Replaced our water heater the same morning we called. They took the old unit away and left the garage cleaner than they found it.</p><b>Marcus T.</b><small>Smyrna</small></div>
+      <div class="rev"><div class="st">★★★★★</div><p>Camera down the drain showed roots. They talked me out of the expensive option and did the cheaper fix. Have not had a problem since.</p><b>Priya N.</b><small>Brookhaven</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="sect soft" id="contact">
+  <div class="wrap">
+    <div class="head">
+      <span class="kick">Contact</span>
+      <h2>Opening hours and callouts.</h2>
+    </div>
+    <div class="contact">
+      <table class="hours">
+        <tr><td>Monday to Friday</td><td>7:00 am to 6:00 pm</td></tr>
+        <tr><td>Saturday</td><td>8:00 am to 4:00 pm</td></tr>
+        <tr><td>Sunday</td><td>Emergency only</td></tr>
+        <tr class="em"><td>Emergency line</td><td>24 hours, every day</td></tr>
+      </table>
+      <div class="cbox">
+        <h3>Need someone today?</h3>
+        <span class="num">(470) 555 0142</span>
+        <p>Calls answered by a person, not a queue. If it is flooding, call rather than fill in a form.</p>
+        <a href="tel:+14705550142" class="btn btn-o">Call now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span>Northline Plumbing and Heating</span>
+    <span>GA licence #MP208341</span>
+    <span>Decatur, GA</span>
+    <span class="built"><i></i><a href="../../">Built by websrvrs</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

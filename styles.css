@@ -65,6 +65,8 @@ p:last-child { margin-bottom: 0; }
 .mast nav a { color: var(--ink-soft); font-size: 15px; font-weight: 500; }
 .mast nav a:hover { color: var(--web); text-decoration: none; }
 .mast .right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.telhdr { font-weight: 600; font-size: 15px; color: var(--ink); white-space: nowrap; }
+.telhdr:hover { color: var(--web); text-decoration: none; }
 .burger { display: none; background: none; border: 1px solid var(--line-strong); border-radius: var(--r-sm); padding: 6px 8px; cursor: pointer; }
 .burger span { display: block; width: 16px; height: 2px; background: var(--ink); margin: 3px 0; }
 
@@ -212,6 +214,7 @@ details .ans { padding: 0 22px 18px; color: var(--muted); font-size: 15px; max-w
   .burger { display: block; }
   .mast.open nav { display: flex; position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; gap: 0; background: #fff; border-bottom: 1px solid var(--line); padding: 6px var(--pad) 16px; }
   .mast.open nav a { padding: 11px 0; border-bottom: 1px solid var(--line); width: 100%; }
+  .telhdr { display: none; }
   .step { grid-template-columns: 44px 1fr; }
   .step .d { grid-column: 2; }
 }

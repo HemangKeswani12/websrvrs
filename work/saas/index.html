@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shiftly · Scheduling for shift teams</title>
+<meta name="description" content="Build the rota in minutes, fill open shifts automatically, and stop losing hours to the group chat. Scheduling software for teams that work in shifts." />
+<meta name="theme-color" content="#ffffff" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234f46e5'/%3E%3Crect x='17' y='19' width='30' height='8' rx='4' fill='white'/%3E%3Crect x='17' y='33' width='20' height='8' rx='4' fill='white' opacity='.65'/%3E%3C/svg%3E" />
+<style>
+:root{
+  --ind:#4f46e5; --ind-d:#4338ca; --ind-s:#eef0ff; --grn:#059669;
+  --bg:#ffffff; --soft:#f8f9fc; --line:#e6e8f0; --ink:#111428; --mut:#5b6080; --faint:#9094b0;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:clamp(18px,4vw,32px)}
+h1,h2,h3{margin:0;line-height:1.12;letter-spacing:-.03em;font-weight:800}
+h1{font-size:clamp(34px,5.4vw,56px)} h2{font-size:clamp(24px,3.2vw,36px)} h3{font-size:17px;letter-spacing:-.015em}
+p{margin:0 0 12px} p:last-child{margin-bottom:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:15px;padding:11px 20px;border-radius:8px;border:1px solid transparent;cursor:pointer}
+.btn-p{background:var(--ind);color:#fff}.btn-p:hover{background:var(--ind-d)}
+.btn-g{background:#fff;color:var(--ink);border-color:var(--line)}.btn-g:hover{border-color:var(--mut)}
+
+.nav{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);z-index:40}
+.nav-in{display:flex;align-items:center;gap:26px;height:62px}
+.lg{display:flex;align-items:center;gap:9px;font-weight:800;font-size:17.5px;letter-spacing:-.03em}
+.lg i{width:26px;height:26px;border-radius:7px;background:var(--ind);display:block;font-style:normal;position:relative}
+.lg i::after{content:"";position:absolute;left:6px;top:8px;width:14px;height:3px;border-radius:2px;background:#fff;box-shadow:0 6px 0 rgba(255,255,255,.6)}
+.nav nav{display:flex;gap:22px}
+.nav nav a{font-size:14.5px;color:var(--mut)}.nav nav a:hover{color:var(--ink)}
+.nav .r{margin-left:auto;display:flex;align-items:center;gap:10px}
+
+.hero{padding-block:clamp(40px,6vw,72px) clamp(34px,5vw,56px);text-align:center;background:var(--soft);border-bottom:1px solid var(--line)}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--ind-s);color:var(--ind-d);border-radius:999px;padding:5px 13px;font-size:13px;font-weight:600}
+.hero h1{margin:16px auto 0;max-width:17ch}
+.hero p.s{margin:16px auto 0;max-width:54ch;font-size:18px;color:var(--mut)}
+.hero .acts{margin-top:24px;display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
+.hero .fine{margin-top:12px;font-size:13.5px;color:var(--faint)}
+
+/* app mock */
+.mock{margin:38px auto 0;max-width:900px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 20px 48px rgba(17,20,40,.1);overflow:hidden;text-align:left}
+.mock-bar{display:flex;align-items:center;gap:7px;padding:10px 14px;border-bottom:1px solid var(--line);background:#fcfcfe}
+.mock-bar i{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
+.mock-bar b{margin-left:8px;font-family:var(--mono);font-size:11.5px;color:var(--faint);font-weight:400}
+.mock-body{display:grid;grid-template-columns:150px 1fr}
+.side{border-right:1px solid var(--line);padding:14px 12px;background:#fcfcfe}
+.side .s{font-size:12.5px;color:var(--mut);padding:7px 9px;border-radius:6px}
+.side .s.on{background:var(--ind-s);color:var(--ind-d);font-weight:600}
+.cal{padding:14px}
+.cal .hd{display:grid;grid-template-columns:70px repeat(5,1fr);gap:6px;font-size:11px;color:var(--faint);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.cal .rw{display:grid;grid-template-columns:70px repeat(5,1fr);gap:6px;margin-bottom:6px;align-items:center}
+.cal .nm{font-size:12.5px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip{height:26px;border-radius:5px;background:var(--ind-s);border-left:3px solid var(--ind);font-size:10.5px;color:var(--ind-d);display:flex;align-items:center;padding-left:6px;font-weight:600}
+.chip.g{background:#e8f7f1;border-left-color:var(--grn);color:#046c4e}
+.chip.o{background:#fff4e6;border-left-color:#d97706;color:#92400e}
+.chip.e{background:#fafafe;border:1px dashed var(--line);border-left:1px dashed var(--line);color:var(--faint);font-weight:400}
+
+.logos{padding-block:26px;border-bottom:1px solid var(--line)}
+.logos-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px 40px}
+.logos span{font-weight:700;color:var(--faint);font-size:16px;letter-spacing:-.02em}
+
+.sect{padding-block:clamp(44px,6vw,74px)}
+.sect.soft{background:var(--soft);border-block:1px solid var(--line)}
+.head{max-width:58ch;margin:0 auto 32px;text-align:center}
+.kick{font-size:12.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ind)}
+.head h2{margin-top:9px}
+.head p{margin-top:11px;color:var(--mut);font-size:16.5px}
+
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.ft{background:#fff;border:1px solid var(--line);border-radius:10px;padding:22px}
+.ft .ic{width:32px;height:32px;border-radius:8px;background:var(--ind-s);display:grid;place-items:center;color:var(--ind-d);font-weight:800;font-size:13px}
+.ft h3{margin:13px 0 6px}
+.ft p{color:var(--mut);font-size:14.5px}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
+.st{position:relative;padding-top:38px}
+.st::before{counter-increment:s;content:counter(s);position:absolute;top:0;left:0;width:28px;height:28px;border-radius:50%;background:var(--ind);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700}
+.st h3{margin-bottom:6px}
+.st p{color:var(--mut);font-size:14.5px}
+
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
+.pl{background:#fff;border:1px solid var(--line);border-radius:12px;padding:26px;display:flex;flex-direction:column}
+.pl.best{border-color:var(--ind);box-shadow:0 0 0 1px var(--ind),0 12px 30px rgba(79,70,229,.14)}
+.pl .tg{align-self:flex-start;font-size:11.5px;font-weight:700;color:var(--ind-d);background:var(--ind-s);padding:4px 10px;border-radius:999px;margin-bottom:12px}
+.pl .nm{font-weight:700;font-size:17px}
+.pl .pr{margin:14px 0 2px;font-size:38px;font-weight:800;letter-spacing:-.04em}
+.pl .pr span{font-size:14px;font-weight:500;color:var(--faint);letter-spacing:0}
+.pl .sub{color:var(--mut);font-size:13.5px}
+.pl ul{list-style:none;margin:18px 0 22px;padding:0;display:grid;gap:9px}
+.pl li{display:flex;gap:9px;font-size:14.5px;color:var(--mut)}
+.pl li::before{content:"";width:15px;height:15px;border-radius:50%;background:#e8f7f1;border:3px solid var(--grn);flex:none;margin-top:4px}
+.pl .btn{margin-top:auto;width:100%}
+
+.faq{max-width:760px;margin:0 auto;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+details{border-bottom:1px solid var(--line)}details:last-child{border-bottom:0}
+summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;justify-content:space-between;gap:16px;font-weight:600;font-size:15.5px}
+summary::-webkit-details-marker{display:none}
+summary:hover{color:var(--ind)}
+summary .p{color:var(--faint);transition:transform .15s}
+details[open] summary .p{transform:rotate(45deg);color:var(--ind)}
+details .a{padding:0 20px 16px;color:var(--mut);font-size:14.5px}
+
+.cta{text-align:center;background:var(--ind);color:#fff;border-radius:14px;padding:clamp(32px,5vw,52px)}
+.cta h2{color:#fff;max-width:18ch;margin:0 auto}
+.cta p{margin-top:12px;color:#d6d4fb;max-width:46ch;margin-inline:auto}
+.cta .btn{margin-top:22px}
+.cta .btn-w{background:#fff;color:var(--ind-d)}
+
+.foot{border-top:1px solid var(--line);background:var(--soft);padding-block:26px;font-size:13.5px;color:var(--mut)}
+.foot-in{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
+.built{margin-left:auto;display:inline-flex;align-items:center;gap:7px}
+.built i{width:15px;height:15px;border-radius:4px;background:#1d4ed8;display:block;font-style:normal}
+
+@media(max-width:900px){
+  .feats,.steps,.plans{grid-template-columns:1fr}
+  .nav nav{display:none}
+  .mock-body{grid-template-columns:1fr}
+  .side{display:none}
+}
+@media(max-width:620px){
+  .cal .hd,.cal .rw{grid-template-columns:56px repeat(3,1fr)}
+  .cal .hd span:nth-child(n+5),.cal .rw>div:nth-child(n+5){display:none}
+  .hero .acts .btn{width:100%}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#" class="lg"><i></i>Shiftly</a>
+    <nav><a href="#features">Features</a><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
+    <div class="r"><a href="#" class="btn btn-g">Sign in</a><a href="#pricing" class="btn btn-p">Start free</a></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="pill">Now with automatic shift swaps</span>
+    <h1>Build the rota in minutes, not evenings.</h1>
+    <p class="s">Shiftly schedules your team, fills open shifts automatically, and keeps everyone in one place instead of a group chat nobody reads.</p>
+    <div class="acts">
+      <a href="#pricing" class="btn btn-p">Start free for 14 days</a>
+      <a href="#how" class="btn btn-g">See how it works</a>
+    </div>
+    <p class="fine">No card required. Set up your first week in under ten minutes.</p>
+
+    <div class="mock">
+      <div class="mock-bar"><i></i><i></i><i></i><b>app.shiftly.com/schedule</b></div>
+      <div class="mock-body">
+        <div class="side">
+          <div class="s on">Schedule</div><div class="s">Open shifts</div><div class="s">Time off</div>
+          <div class="s">Timesheets</div><div class="s">Team</div><div class="s">Reports</div>
+        </div>
+        <div class="cal">
+          <div class="hd"><span></span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span></div>
+          <div class="rw"><div class="nm">A. Reyes</div><div class="chip">7a to 3p</div><div class="chip">7a to 3p</div><div class="chip e">Off</div><div class="chip">7a to 3p</div><div class="chip">7a to 3p</div></div>
+          <div class="rw"><div class="nm">J. Okafor</div><div class="chip g">3p to 11p</div><div class="chip e">Off</div><div class="chip g">3p to 11p</div><div class="chip g">3p to 11p</div><div class="chip e">Off</div></div>
+          <div class="rw"><div class="nm">M. Lindqvist</div><div class="chip e">Off</div><div class="chip o">Open</div><div class="chip">7a to 3p</div><div class="chip e">Off</div><div class="chip g">3p to 11p</div></div>
+          <div class="rw"><div class="nm">T. Bauer</div><div class="chip g">3p to 11p</div><div class="chip">7a to 3p</div><div class="chip o">Open</div><div class="chip">7a to 3p</div><div class="chip">7a to 3p</div></div>
+          <div class="rw"><div class="nm">S. Grant</div><div class="chip">7a to 3p</div><div class="chip g">3p to 11p</div><div class="chip g">3p to 11p</div><div class="chip e">Off</div><div class="chip o">Open</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="logos"><div class="wrap logos-in">
+  <span>Brightwell</span><span>Harbor Foods</span><span>Vantage Care</span><span>Loop Logistics</span><span>Northside Retail</span>
+</div></div>
+
+<section class="sect" id="features">
+  <div class="wrap">
+    <div class="head"><span class="kick">Features</span><h2>Everything the rota needs. Nothing it does not.</h2><p>Built for managers who schedule the same team every week and would rather not start from a blank grid each time.</p></div>
+    <div class="feats">
+      <div class="ft"><div class="ic">01</div><h3>Templates that repeat</h3><p>Save a week you are happy with and reuse it. Shiftly carries over patterns and only asks about the gaps.</p></div>
+      <div class="ft"><div class="ic">02</div><h3>Open shift marketplace</h3><p>Post a gap and the people qualified for it get notified. First to claim it gets it, with your approval if you want.</p></div>
+      <div class="ft"><div class="ic">03</div><h3>Swaps without the chat</h3><p>Staff arrange cover between themselves inside the app. You see the request and approve in one tap.</p></div>
+      <div class="ft"><div class="ic">04</div><h3>Time off that fits</h3><p>Requests land against the live rota, so you can see what breaks before you say yes.</p></div>
+      <div class="ft"><div class="ic">05</div><h3>Overtime warnings</h3><p>Shiftly flags anyone heading over their contracted hours while you are still building the week.</p></div>
+      <div class="ft"><div class="ic">06</div><h3>Timesheets that export</h3><p>Hours flow from the rota into a timesheet you can send straight to payroll. CSV or a direct export.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sect soft" id="how">
+  <div class="wrap">
+    <div class="head"><span class="kick">How it works</span><h2>Three steps to your first rota.</h2></div>
+    <div class="steps">
+      <div class="st"><h3>Add your team</h3><p>Import from a spreadsheet or type them in. Set contracted hours, roles, and who is qualified for what.</p></div>
+      <div class="st"><h3>Build a week</h3><p>Drag shifts onto the grid, or let Shiftly fill it from your usual pattern and adjust what it got wrong.</p></div>
+      <div class="st"><h3>Publish</h3><p>Everyone gets the rota on their phone. Changes after publishing notify only the people affected.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sect" id="pricing">
+  <div class="wrap">
+    <div class="head"><span class="kick">Pricing</span><h2>Priced per person, not per feature.</h2><p>Every plan includes the full product. Bigger plans add history, integrations, and support.</p></div>
+    <div class="plans">
+      <div class="pl">
+        <div class="nm">Starter</div>
+        <div class="pr">$3<span> per person, per month</span></div>
+        <div class="sub">Up to 15 people</div>
+        <ul><li>Scheduling and templates</li><li>Open shifts and swaps</li><li>Mobile app for staff</li><li>Email support</li></ul>
+        <a href="#" class="btn btn-g">Start free</a>
+      </div>
+      <div class="pl best">
+        <span class="tg">Most popular</span>
+        <div class="nm">Team</div>
+        <div class="pr">$5<span> per person, per month</span></div>
+        <div class="sub">Unlimited people</div>
+        <ul><li>Everything in Starter</li><li>Time off and approvals</li><li>Overtime warnings</li><li>Timesheets and payroll export</li><li>12 months of history</li></ul>
+        <a href="#" class="btn btn-p">Start free</a>
+      </div>
+      <div class="pl">
+        <div class="nm">Business</div>
+        <div class="pr">$9<span> per person, per month</span></div>
+        <div class="sub">Multi site</div>
+        <ul><li>Everything in Team</li><li>Multiple locations</li><li>Custom roles and permissions</li><li>API and integrations</li><li>Priority support</li></ul>
+        <a href="#" class="btn btn-g">Talk to sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sect soft" id="faq">
+  <div class="wrap">
+    <div class="head"><span class="kick">FAQ</span><h2>Questions worth asking.</h2></div>
+    <div class="faq">
+      <details><summary><span>Do staff need to install anything?</span><span class="p">+</span></summary><div class="a">There is an app, but it is optional. Staff can view the rota and claim shifts from a link in a text message if they would rather not install anything.</div></details>
+      <details><summary><span>Can we import our existing rota?</span><span class="p">+</span></summary><div class="a">Yes. Upload a spreadsheet of people and shifts and Shiftly will map the columns. Most teams are set up inside an afternoon.</div></details>
+      <details><summary><span>What happens when someone calls in sick?</span><span class="p">+</span></summary><div class="a">Mark the shift open and everyone qualified gets notified at once. In most teams it is claimed before the manager has finished their coffee.</div></details>
+      <details><summary><span>Does it handle multiple sites?</span><span class="p">+</span></summary><div class="a">On the Business plan, yes. You can schedule across locations, share staff between them, and report on each separately.</div></details>
+      <details><summary><span>How does billing work?</span><span class="p">+</span></summary><div class="a">You pay for people who are actually scheduled in a given month. Seasonal teams are not charged for staff sitting idle out of season.</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="sect">
+  <div class="wrap">
+    <div class="cta">
+      <h2>Get your week back.</h2>
+      <p>Free for 14 days, no card, and you can import your current rota to see it side by side.</p>
+      <a href="#" class="btn btn-w">Start free for 14 days</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span>Shiftly</span><span>&#169; 2026</span><span>Privacy</span><span>Terms</span>
+    <span class="built"><i></i><a href="../../">Built by websrvrs</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
